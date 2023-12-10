@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://brs8t7fu2qyyc"]
+
+[ext_resource type="Texture2D" uid="uid://cwphfyuuxqyoq" path="res://assets/spotlight.png" id="2_ce2xi"]
+[ext_resource type="Script" path="res://src/Wall.cs" id="2_hmhqx"]
+[ext_resource type="Script" path="res://src/ResetArea.cs" id="2_jtmmi"]
+[ext_resource type="Texture2D" uid="uid://1slw4jstj3bf" path="res://assets/map.png" id="4_twyyv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cd7f"]
+size = Vector2(1280, 704)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m60ws"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lkc3l"]
+size = Vector2(1280.5, 16)
+
+[node name="Root" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="Spotlight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(120, 344)
+texture = ExtResource("2_ce2xi")
+
+[node name="Texts" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Texts"]
+modulate = Color(0, 0, 0, 1)
+z_index = 1
+offset_left = 120.0
+offset_top = 360.0
+offset_right = 197.0
+offset_bottom = 383.0
+text = "Deez nuts"
+
+[node name="Label2" type="Label" parent="Texts"]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 360.0
+offset_right = 291.0
+offset_bottom = 383.0
+text = "ligma"
+
+[node name="Wall2" type="Area2D" parent="."]
+position = Vector2(640, 352)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_3cd7f")
+
+[node name="Maze" type="Node2D" parent="."]
+
+[node name="Reset" type="Area2D" parent="Maze"]
+visible = false
+position = Vector2(8, 376)
+script = ExtResource("2_jtmmi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Reset"]
+visible = false
+shape = SubResource("RectangleShape2D_m60ws")
+
+[node name="Wall" type="Area2D" parent="Maze"]
+visible = false
+position = Vector2(640, 328)
+script = ExtResource("2_hmhqx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Wall"]
+visible = false
+position = Vector2(0.25, 0)
+shape = SubResource("RectangleShape2D_lkc3l")
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(1256, 696)
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("4_twyyv")
+
+[connection signal="input_event" from="Wall2" to="Wall2" method="OnInputEvent"]
+[connection signal="input_event" from="Maze/Reset" to="Maze/Reset" method="OnInputEvent"]
+[connection signal="input_event" from="Maze/Wall" to="Maze/Wall" method="OnInputEvent"]
