@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class ResetArea : Area2D
+public partial class CloseMap : Area2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -15,12 +15,15 @@ public partial class ResetArea : Area2D
 
 	private void OnInputEvent(Node viewport, InputEvent @event, long shape_idx)
 	{
-		var control = GetNode<Control>("/root/Root/Texts");
-		control.Visible = true;
-		// foreach (Label child in control.GetChildren())
-		// {
-		// 	child.Visible = true;
-		// }
-		// GD.Print("ligma");
+		if (Input.IsActionJustPressed("Mouse1"))
+		{
+			var mapSprite = GetNode<Sprite2D>("/root/Root/MazeMap");
+			mapSprite.Visible = false;
+			var mapButton = GetNode<Area2D>("/root/Root/OpenMapButton");
+			mapButton.InputPickable = true;
+			
+			Visible = false;
+			InputPickable = false;
+		}
 	}
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Wall : Area2D
+public partial class Path : Area2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -13,12 +13,9 @@ public partial class Wall : Area2D
 	{
 	}
 	
-	private void OnInputEvent(Node viewport, InputEvent @event, long shape_idx)
+	public void OnMouseExited()
 	{
-		var control = GetNode<Control>("/root/Root/Texts");
-		foreach (Label child in control.GetChildren())
-		{
-			child.Visible = false;
-		}
+		var texts = GetNode<Control>("/root/Root/Texts");
+		texts.Visible = false;
 	}
 }
