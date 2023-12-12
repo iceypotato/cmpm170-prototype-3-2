@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ql5dxhbor4nr"]
+[gd_scene load_steps=15 format=3 uid="uid://ql5dxhbor4nr"]
 
 [ext_resource type="Texture2D" uid="uid://cwphfyuuxqyoq" path="res://assets/spotlight.png" id="1_melic"]
 [ext_resource type="Script" path="res://src/Spotlight.cs" id="2_1sljp"]
@@ -6,11 +6,9 @@
 [ext_resource type="Script" path="res://src/ResetArea.cs" id="4_8434r"]
 [ext_resource type="Script" path="res://src/Path.cs" id="5_4rwpy"]
 [ext_resource type="Script" path="res://src/MapButton.cs" id="6_eh0su"]
+[ext_resource type="Script" path="res://ChangeMap.cs" id="7_7chcf"]
 [ext_resource type="Texture2D" uid="uid://1slw4jstj3bf" path="res://assets/map.png" id="7_ll67a"]
 [ext_resource type="Script" path="res://src/CloseMap.cs" id="8_yv0d0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m60ws"]
-size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cingr"]
 size = Vector2(48, 48)
@@ -20,6 +18,12 @@ font_size = 40
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cj12p"]
 size = Vector2(56, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m60ws"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71fvd"]
+size = Vector2(64, 64)
 
 [node name="Root" type="Node2D"]
 
@@ -50,9 +54,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="Texts"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
+[node name="Label1" type="Label" parent="Texts"]
 offset_left = 152.0
 offset_top = 96.0
 offset_right = 229.0
@@ -61,8 +63,6 @@ text = "G"
 horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="Texts"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
 offset_left = 192.0
 offset_top = 344.0
 offset_right = 235.0
@@ -71,8 +71,6 @@ text = "A"
 horizontal_alignment = 2
 
 [node name="Label4" type="Label" parent="Texts"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
 offset_left = 704.0
 offset_top = 472.0
 offset_right = 747.0
@@ -81,8 +79,6 @@ text = "A"
 horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="Texts"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
 offset_left = 192.0
 offset_top = 464.0
 offset_right = 235.0
@@ -91,8 +87,6 @@ text = "L"
 horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="Texts"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
 offset_left = 960.0
 offset_top = 344.0
 offset_right = 1003.0
@@ -101,33 +95,12 @@ text = "X"
 horizontal_alignment = 2
 
 [node name="Label6" type="Label" parent="Texts"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
 offset_left = 960.0
 offset_top = 472.0
 offset_right = 1003.0
 offset_bottom = 495.0
 text = "Y"
 horizontal_alignment = 2
-
-[node name="Maze" type="Node2D" parent="."]
-
-[node name="Reset" type="Area2D" parent="Maze"]
-z_index = 1
-position = Vector2(32, 96)
-script = ExtResource("4_8434r")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Maze/Reset"]
-shape = SubResource("RectangleShape2D_m60ws")
-
-[node name="Path1" type="Area2D" parent="Maze"]
-z_index = 1
-script = ExtResource("5_4rwpy")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Maze/Path1"]
-position = Vector2(-232, 16)
-scale = Vector2(0.679124, 0.856296)
-polygon = PackedVector2Array(341.617, 56.0554, 718.573, 56.0554, 718.573, 429.758, 530.095, 429.758, 530.095, 504.498, 718.573, 504.499, 718.573, 653.979, 1001.29, 653.979, 1001.29, 504.498, 1284.01, 504.498, 1284.01, 653.979, 1378.25, 653.979, 1378.25, 504.498, 1566.72, 504.498, 1566.72, 355.017, 1849.44, 355.017, 1849.44, 504.498, 2132.16, 504.498, 2132.16, 579.239, 1755.2, 579.239, 1755.2, 429.758, 1660.96, 429.758, 1660.96, 579.239, 1472.49, 579.239, 1472.49, 728.72, 1189.77, 728.72, 1189.77, 579.239, 1095.53, 579.239, 1095.53, 728.72, 624.334, 728.72, 624.334, 579.239, 435.856, 579.239, 435.856, 355.017, 624.334, 355.017, 624.334, 130.796, 341.617, 130.796)
 
 [node name="OpenMapButton" type="Area2D" parent="."]
 script = ExtResource("6_eh0su")
@@ -159,7 +132,96 @@ horizontal_alignment = 1
 position = Vector2(1244, 36)
 shape = SubResource("RectangleShape2D_cj12p")
 
-[connection signal="input_event" from="Maze/Reset" to="Maze/Reset" method="OnInputEvent"]
-[connection signal="mouse_exited" from="Maze/Path1" to="Maze/Path1" method="OnMouseExited"]
+[node name="ChangeMap" type="Area2D" parent="."]
+z_index = 3
+position = Vector2(-1064, -8)
+script = ExtResource("7_7chcf")
+
+[node name="Label" type="Label" parent="ChangeMap"]
+offset_left = 1216.0
+offset_top = 8.0
+offset_right = 1273.0
+offset_bottom = 64.0
+text = "Change"
+label_settings = SubResource("LabelSettings_ejft6")
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChangeMap"]
+position = Vector2(1244, 36)
+shape = SubResource("RectangleShape2D_cj12p")
+
+[node name="MazeLabel" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 115.0
+offset_bottom = 47.0
+text = "Maze : N/A"
+
+[node name="Mazes" type="Node" parent="."]
+
+[node name="Maze" type="Node2D" parent="Mazes"]
+
+[node name="Reset" type="Area2D" parent="Mazes/Maze"]
+z_index = 1
+position = Vector2(32, 96)
+script = ExtResource("4_8434r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mazes/Maze/Reset"]
+shape = SubResource("RectangleShape2D_m60ws")
+
+[node name="Path1" type="Area2D" parent="Mazes/Maze"]
+z_index = 1
+script = ExtResource("5_4rwpy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mazes/Maze/Path1"]
+position = Vector2(-232, 16)
+scale = Vector2(0.679124, 0.856296)
+polygon = PackedVector2Array(341.617, 56.0554, 718.573, 56.0554, 718.573, 429.758, 530.095, 429.758, 530.095, 504.498, 718.573, 504.499, 718.573, 653.979, 1001.29, 653.979, 1001.29, 504.498, 1284.01, 504.498, 1284.01, 653.979, 1378.25, 653.979, 1378.25, 504.498, 1566.72, 504.498, 1566.72, 355.017, 1849.44, 355.017, 1849.44, 504.498, 2132.16, 504.498, 2132.16, 579.239, 1755.2, 579.239, 1755.2, 429.758, 1660.96, 429.758, 1660.96, 579.239, 1472.49, 579.239, 1472.49, 728.72, 1189.77, 728.72, 1189.77, 579.239, 1095.53, 579.239, 1095.53, 728.72, 624.334, 728.72, 624.334, 579.239, 435.856, 579.239, 435.856, 355.017, 624.334, 355.017, 624.334, 130.796, 341.617, 130.796)
+
+[node name="Maze2" type="Node2D" parent="Mazes"]
+
+[node name="Reset" type="Area2D" parent="Mazes/Maze2"]
+z_index = 1
+position = Vector2(32, 96)
+script = ExtResource("4_8434r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mazes/Maze2/Reset"]
+shape = SubResource("RectangleShape2D_71fvd")
+
+[node name="Path1" type="Area2D" parent="Mazes/Maze2"]
+z_index = 1
+script = ExtResource("5_4rwpy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mazes/Maze2/Path1"]
+position = Vector2(-196, -11)
+scale = Vector2(0.679124, 0.856296)
+polygon = PackedVector2Array(347.507, 87.5865, 759.802, 87.5865, 759.802, 461.289, 1325.24, 461.289, 1325.24, 237.068, 1890.67, 237.068, 1890.67, 610.77, 2126.27, 610.77, 2126.27, 760.251, 2126.27, 853.677, 1890.67, 853.677, 1890.67, 760.251, 1702.19, 760.251, 1702.19, 386.549, 1513.71, 386.549, 1513.71, 601.427, 571.324, 601.427, 571.324, 433.261, 571.324, 237.068, 347.507, 237.068)
+
+[node name="Maze3" type="Node2D" parent="Mazes"]
+
+[node name="Reset" type="Area2D" parent="Mazes/Maze3"]
+z_index = 1
+position = Vector2(32, 96)
+script = ExtResource("4_8434r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mazes/Maze3/Reset"]
+shape = SubResource("RectangleShape2D_71fvd")
+
+[node name="Path1" type="Area2D" parent="Mazes/Maze3"]
+z_index = 1
+script = ExtResource("5_4rwpy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Mazes/Maze3/Path1"]
+position = Vector2(-196, -11)
+scale = Vector2(0.679124, 0.856296)
+polygon = PackedVector2Array(347.507, 87.5865, 759.802, 87.5865, 759.802, 461.289, 1325.24, 461.289, 1325.24, 237.068, 1890.67, 237.068, 1890.67, 610.77, 2126.27, 610.77, 2126.27, 760.251, 2126.27, 853.677, 1890.67, 853.677, 1890.67, 760.251, 1702.19, 760.251, 1702.19, 386.549, 1513.71, 386.549, 1513.71, 601.427, 571.324, 601.427, 571.324, 433.261, 571.324, 237.068, 347.507, 237.068)
+
 [connection signal="input_event" from="OpenMapButton" to="OpenMapButton" method="OnInputEvent"]
 [connection signal="input_event" from="CloseMapButton" to="CloseMapButton" method="OnInputEvent"]
+[connection signal="input_event" from="ChangeMap" to="ChangeMap" method="OnInputEvent"]
+[connection signal="input_event" from="Mazes/Maze/Reset" to="Mazes/Maze/Reset" method="OnInputEvent"]
+[connection signal="mouse_exited" from="Mazes/Maze/Path1" to="Mazes/Maze/Path1" method="OnMouseExited"]
+[connection signal="input_event" from="Mazes/Maze2/Reset" to="Mazes/Maze2/Reset" method="OnInputEvent"]
+[connection signal="mouse_exited" from="Mazes/Maze2/Path1" to="Mazes/Maze2/Path1" method="OnMouseExited"]
+[connection signal="input_event" from="Mazes/Maze3/Reset" to="Mazes/Maze3/Reset" method="OnInputEvent"]
+[connection signal="mouse_exited" from="Mazes/Maze3/Path1" to="Mazes/Maze3/Path1" method="OnMouseExited"]
