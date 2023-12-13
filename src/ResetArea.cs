@@ -15,7 +15,7 @@ public partial class ResetArea : Area2D
 
 	private void OnInputEvent(Node viewport, InputEvent @event, long shape_idx)
 	{
-		var control = GetNode<Control>("/root/Root/Texts");
+		var control = GetNode<Control>("../Texts");
 		control.Visible = true;
 		// foreach (Label child in control.GetChildren())
 		// {
@@ -23,4 +23,14 @@ public partial class ResetArea : Area2D
 		// }
 		// GD.Print("ligma");
 	}
+
+	private void OnMouseEntered()
+	{
+		var control = GetNode<Control>("../Texts");
+		if (!control.Visible)
+		{
+			GetNode<AudioStreamPlayer>("/root/Root/ActivateMaze").Play();
+		}
+	}
+	
 }

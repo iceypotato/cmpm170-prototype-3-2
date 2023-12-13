@@ -15,7 +15,12 @@ public partial class Path : Area2D
 	
 	public void OnMouseExited()
 	{
-		var texts = GetNode<Control>("/root/Root/Texts");
+		var texts = GetNode<Control>("../Texts");
+		if (texts.Visible)
+		{
+			GetNode<AudioStreamPlayer>("/root/Root/DeviateFromMaze").Play();
+			GD.Print("deviated");
+		}
 		texts.Visible = false;
 	}
 }

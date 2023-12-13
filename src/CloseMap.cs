@@ -21,6 +21,8 @@ public partial class CloseMap : Area2D
 			mapSprite.Visible = false;
 			var mapButton = GetNode<Area2D>("/root/Root/OpenMapButton");
 			mapButton.InputPickable = true;
+			var bg = GetNode<ColorRect>("/root/Root/BG");
+			bg.ZIndex = 0;
 			
 			Visible = false;
 			InputPickable = false;

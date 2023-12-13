@@ -22,7 +22,9 @@ public partial class MapButton : Area2D
 			var closeMapButton = GetNode<Area2D>("/root/Root/CloseMapButton");
 			closeMapButton.Visible = true;
 			closeMapButton.InputPickable = true;
-			
+
+			var bg = GetNode<ColorRect>("/root/Root/BG");
+			bg.ZIndex = 2;
 			InputPickable = false;
 		}
 	}
